@@ -80,7 +80,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edittext_email"
+                    android:id="@+id/login_edittext_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -98,11 +98,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edittext_password"
+                    android:id="@+id/login_edittext_password"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/edittext_email"
+                    android:layout_below="@+id/login_edittext_email"
                     android:layout_marginTop="20dp"
                     app:boxStrokeColor="@color/colorPrimary"
                     app:counterMaxLength="8"
@@ -121,7 +121,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:id="@+id/rel"
                 android:layout_height="wrap_content"
@@ -145,19 +144,15 @@
                     />
 
 
-                <ProgressBar
-                    android:id="@+id/loginProgressBar"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone"
-                    style="?android:attr/progressBarStyle"
+                <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/login_btn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                     />
+                    android:id="@+id/loading_anim"
+                    android:alpha="0"
+                    android:layout_height="70dp"
+                    app:lottie_loop="true"
+                    android:layout_centerInParent="true"
+                    app:lottie_rawRes="@raw/loading_login_register"
+                    />
 
             </RelativeLayout>
 
@@ -165,7 +160,6 @@
                 android:id="@+id/relativeLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rel">
@@ -207,10 +201,10 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/register_btn"
+                android:id="@+id/login_register_btn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/login_btn_backg"
                 android:fontFamily="@font/delius_unicase_bold"
                 android:text="register"
@@ -231,7 +225,7 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/login_register_btn" />
 
             <TextView
                 android:id="@+id/t"
@@ -247,31 +241,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/t">
+                app:layout_constraintTop_toBottomOf="@+id/t"
+                app:layout_constraintVertical_bias="0.076">
 
 
                 <ImageView
-                    android:id="@+id/google_login"
+                    android:id="@+id/google_login_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/google" />
+                    android:src="@drawable/google"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login"
+                    style="@style/FacebookLoginButton"
+                    android:layout_width="41dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/google_login_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/facebook_login"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/facebook" />
+                    android:background="@drawable/facebook"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/google_login_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">ArticleApp</string>
+    <string name="app_name">AtriCulo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="facebook_app_id">2764426670440164</string>
+    <string name="fb_login_protocol_scheme">fb2764426670440164</string>
+    <string name="web_client_id">294025984796-b3b1rt0fabkpho2afc2kijosmc1kcrbf.apps.googleusercontent.com</string>
+    <string name="ad_interstitial_unit_id">ca-app-pub-1391050959066976/8044148653</string>
 </resources>
