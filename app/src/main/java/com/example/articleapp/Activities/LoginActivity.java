@@ -28,6 +28,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.Login;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -48,12 +50,15 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 import org.w3c.dom.Text;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -95,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.image_logo).animate().rotationY(36000).setDuration(600000);
 
         mAuth = FirebaseAuth.getInstance();
-        FacebookSdk.sdkInitialize(this);
 
         currentUser = mAuth.getCurrentUser();
 
@@ -125,11 +129,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        facebook_sign_in.setReadPermissions("email", "public_profile");
+
         mCallbackManager = CallbackManager.Factory.create();
 
-        facebook_sign_in.setReadPermissions("email","public_profile");
-
-        facebookSignInFirst();
+        facebook_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                facebookSignInFirst();
+            }
+        });
 
         updateUIFacebook(mAuth.getCurrentUser());
     }
@@ -144,12 +153,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-
+                Toast.makeText(LoginActivity.this, "Request cancelled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(LoginActivity.this, "Error: "+error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -169,7 +178,14 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Error: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof FirebaseAuthUserCollisionException){
+                    Toast.makeText(LoginActivity.this, "Your facebook email is already in use", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -241,6 +257,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             updateUIGoogle(mAuth.getCurrentUser());
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Error: "+task.getException().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -296,6 +314,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     Toast.makeText(LoginActivity.this, "Login Successful...", Toast.LENGTH_SHORT).show();
+
+                    if (mAuth.getCurrentUser()!= null) {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        Animatoo.animateSlideDown(LoginActivity.this);
+                        finish();
+                    }
 
                 } else {
                     loadingAnimation.animate().alpha(0).setDuration(200);

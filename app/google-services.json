@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:294025984796:android:dc8c6e94ad743c317f98d9",
+        "mobilesdk_app_id": "1:294025984796:android:7a58d363acb08ce47f98d9",
         "android_client_info": {
-          "package_name": "com.example.articleapp"
+          "package_name": "com.atriculo.articleapp"
         }
       },
       "oauth_client": [
@@ -28,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "294025984796-ineeeb9eto263din9ai5gftc29id6cbt.apps.googleusercontent.com",
+              "client_id": "294025984796-b3b1rt0fabkpho2afc2kijosmc1kcrbf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

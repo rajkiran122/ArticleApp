@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     private final String KEY_POST_KEY = "postKey";
 
 
-    private RecyclerView horizontalRecyclerView, verticalRecyclerView;
+    public RecyclerView horizontalRecyclerView, verticalRecyclerView;
 
     private List<Users> verticalList;
     private List<Users> horizontalList;
@@ -72,7 +72,11 @@ public class HomeFragment extends Fragment {
 
     private HorizontalRecyclerViewDashBoard horizontalAdapter;
     private VerticalRecyclerViewAdapter verticalAdapter;
+    private VerticalRecyclerViewAdapter searchAdapter;
 
+
+
+    String data ;
 
 
     @Override
@@ -168,6 +172,7 @@ public class HomeFragment extends Fragment {
                         user.getAddedDate();
                         user.getArticleImage();
                         user.getUserPhoto();
+
 
                         horizontalList.add(user);
                     }

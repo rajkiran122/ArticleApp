@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.se.omapi.Session;
+import android.service.textservice.SpellCheckerService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +18,18 @@ import com.example.articleapp.Activities.MainActivity;
 import com.example.articleapp.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
 public class LogoutFragment extends Fragment {
 
-    private LottieAnimationView yes_btn;
-
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
     FirebaseUser currentUser = mAuth.getCurrentUser();
-
     AccessTokenTracker accessTokenTracker;
+    private LottieAnimationView yes_btn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +37,7 @@ public class LogoutFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_logout, container, false);
 
         yes_btn = v.findViewById(R.id.yes_btn_logout);
+
 
         yes_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,18 +54,9 @@ public class LogoutFragment extends Fragment {
 
                         mAuth.signOut();
 
-                        accessTokenTracker = new AccessTokenTracker() {
-                            @Override
-                            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                                if (currentAccessToken==null){
-                                    mAuth.signOut();
-                                }
-
-                            }
-                        };
-
+                        LoginManager.getInstance().logOut();
                     }
-                },600);
+                }, 600);
 
             }
         });
@@ -75,7 +68,7 @@ public class LogoutFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        if (currentUser==null){
+        if (currentUser == null) {
             startActivity(new Intent(getContext(), LoginActivity.class));
         }
     }

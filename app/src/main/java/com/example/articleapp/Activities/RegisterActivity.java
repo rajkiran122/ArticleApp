@@ -224,8 +224,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
-
-
                     Toast.makeText(RegisterActivity.this, "User Created Successfully...Logging in...Hold on for about 20 secs", Toast.LENGTH_SHORT).show();
 
                     updateInfo(username, imageUri, mAuth.getCurrentUser());
@@ -304,7 +302,7 @@ public class RegisterActivity extends AppCompatActivity {
                 register_user_photo.setImageURI(imageUri);
 
             } else {
-                Toast.makeText(this, "Upload the profile picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Upload a profile picture", Toast.LENGTH_SHORT).show();
             }
         }
 
